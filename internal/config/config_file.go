@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strings"
 
@@ -16,13 +15,14 @@ const maxConfigFileVersion = "0.1"
 type ConfigFileSpec struct { // nolint:revive
 	Version  string     `yaml:"version"`
 	Projects []*Project `yaml:"projects" ignored:"true"`
+	Config   []*Config  `yaml:"config" ignored:"true"`
 }
 
 func LoadConfigFile(path string) (ConfigFileSpec, error) {
 	cfgFile := ConfigFileSpec{}
 
 	if !FileExists(path) {
-		return cfgFile, fmt.Errorf("Config file does not exist at %s", path)
+		return cfgFile, errors.Errorf("Config file does not exist at %s", path)
 	}
 
 	rawCfgFile, err := ioutil.ReadFile(path)
@@ -36,7 +36,7 @@ func LoadConfigFile(path string) (ConfigFileSpec, error) {
 	}
 
 	if !checkVersion(cfgFile.Version) {
-		return cfgFile, fmt.Errorf("Invalid config file version. Supported versions are %s ≤ x ≤ %s", minConfigFileVersion, maxConfigFileVersion)
+		return cfgFile, errors.Errorf("Invalid config file version. Supported versions are %s ≤ x ≤ %s", minConfigFileVersion, maxConfigFileVersion)
 	}
 
 	return cfgFile, nil
