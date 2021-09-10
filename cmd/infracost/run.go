@@ -36,6 +36,11 @@ func addRunFlags(cmd *cobra.Command) {
 
 	cmd.Flags().Bool("sync-usage-file", false, "Sync usage-file with missing resources, needs usage-file too (experimental)")
 
+	cmd.Flags().Bool("tls-verify", true, "Verify TLS certificate for Infracost API endpoint (default true)")
+	cmd.Flags().String("tls-ca-cert", "", "Trust TLS certificates signed only by this CA ex: '~/.infracost/ca.pem' (default \"\")")
+	cmd.Flags().String("tls-cert", "", "Path to TLS certificate file ex: '~/.infracost/cert.pem' (default \"\")")
+	cmd.Flags().String("tls-key", "", "Path to TLS key file ex: '~/.infracost/key.pem' (default \"\")")
+
 	_ = cmd.MarkFlagFilename("path", "json", "tf")
 	_ = cmd.MarkFlagFilename("config-file", "yml")
 	_ = cmd.MarkFlagFilename("usage-file", "yml")
