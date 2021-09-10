@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
@@ -57,7 +56,7 @@ func outputCmd(ctx *config.RunContext) *cobra.Command {
 				}
 
 				if !checkOutputVersion(j.Version) {
-					return fmt.Errorf("Invalid Infracost JSON file version. Supported versions are %s ≤ x ≤ %s", minOutputVersion, maxOutputVersion)
+					return errors.Errorf("Invalid Infracost JSON file version. Supported versions are %s ≤ x ≤ %s", minOutputVersion, maxOutputVersion)
 				}
 
 				currency, err = checkCurrency(currency, j.Currency)
@@ -164,7 +163,7 @@ func checkCurrency(inputCurrency, fileCurrency string) (string, error) {
 	}
 
 	if inputCurrency != fileCurrency {
-		return "", fmt.Errorf("Invalid Infracost JSON file currency mismatch.  Can't combine %s and %s", inputCurrency, fileCurrency)
+		return "", errors.Errorf("Invalid Infracost JSON file currency mismatch.  Can't combine %s and %s", inputCurrency, fileCurrency)
 	}
 
 	return inputCurrency, nil

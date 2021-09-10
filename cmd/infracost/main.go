@@ -11,6 +11,7 @@ import (
 	"github.com/infracost/infracost/internal/ui"
 	"github.com/infracost/infracost/internal/update"
 	"github.com/infracost/infracost/internal/version"
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -146,7 +147,7 @@ func startUpdateCheck(ctx *config.RunContext, c chan *update.Info) {
 
 func checkAPIKey(apiKey string, apiEndpoint string, defaultEndpoint string) error {
 	if apiEndpoint == defaultEndpoint && apiKey == "" {
-		return fmt.Errorf(
+		return errors.Errorf(
 			"No INFRACOST_API_KEY environment variable is set.\nWe run a free Cloud Pricing API, to get an API key run %s",
 			ui.PrimaryString("infracost register"),
 		)

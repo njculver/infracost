@@ -66,7 +66,7 @@ Supported settings:
 			}
 
 			if !isValidConfigureKey(args[0]) {
-				return fmt.Errorf("Invalid key, valid keys are: %s", strings.Join(validConfigureKeys, ", "))
+				return errors.Errorf("Invalid key, valid keys are: %s", strings.Join(validConfigureKeys, ", "))
 			}
 
 			return nil
@@ -141,7 +141,7 @@ Supported settings:
 			}
 
 			if !isValidConfigureKey(args[0]) {
-				return fmt.Errorf("Invalid key, valid keys are: %s", strings.Join(validConfigureKeys, ", "))
+				return errors.Errorf("Invalid key, valid keys are: %s", strings.Join(validConfigureKeys, ", "))
 			}
 
 			return nil
