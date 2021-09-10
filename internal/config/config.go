@@ -39,6 +39,12 @@ type Config struct {
 	DashboardAPIEndpoint      string `yaml:"dashboard_api_endpoint,omitempty" envconfig:"INFRACOST_DASHBOARD_API_ENDPOINT"`
 	EnableDashboard           bool   `yaml:"enable_dashboard,omitempty" envconfig:"INFRACOST_ENABLE_DASHBOARD"`
 
+	TlsVerify        bool   `yaml:"tls_verify,omitempty" envconfig:"INFRACOST_TLS_VERIFY"`
+	DefaultTlsVerify bool   `yaml:"tls_verify,omitempty" envconfig:"INFRACOST_TLS_VERIFY"`
+	TlsCaCert        string `yaml:"tls_ca_cert,omitempty" envconfig:"INFRACOST_TLS_CA_CERT"`
+	TlsCert          string `yaml:"tls_cert,omitempty" envconfig:"INFRACOST_TLS_CERT"`
+	TlsKey           string `yaml:"tls_key,omitempty" envconfig:"INFRACOST_TLS_KEY"`
+
 	Currency string `envconfig:"INFRACOST_CURRENCY"`
 
 	Projects      []*Project `yaml:"projects" ignored:"true"`
@@ -68,6 +74,12 @@ func DefaultConfig() *Config {
 		DefaultPricingAPIEndpoint: "https://pricing.api.infracost.io",
 		PricingAPIEndpoint:        "",
 		DashboardAPIEndpoint:      "https://dashboard.api.infracost.io",
+
+		DefaultTlsVerify: true,
+		TlsVerify:        true,
+		TlsCaCert:        "",
+		TlsCert:          "",
+		TlsKey:           "",
 
 		Projects: []*Project{{}},
 
